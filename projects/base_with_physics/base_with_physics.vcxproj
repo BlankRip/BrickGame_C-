@@ -99,6 +99,7 @@
   <ItemGroup>
     <ClInclude Include="app.h" />
     <ClInclude Include="example.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="Rabbit.h">
       <SubType>
       </SubType>
@@ -108,6 +109,7 @@
     <ClCompile Include="app.cpp" />
     <ClCompile Include="dependencies.cpp" />
     <ClCompile Include="example.cpp" />
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Rabbit.cpp">
       <SubType>

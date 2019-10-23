@@ -30,6 +30,8 @@ bool Example::start()
 	Rabbit *rabbit = kage::World::build<Rabbit>();
 	rabbit->position(2, 4); // Note that this now uses metres instead of pixels.
 
+	mapEditorGrid.CreateGrid(m_window);
+
 	return true;
 }
 
@@ -55,8 +57,9 @@ void Example::update(float deltaT)
 void Example::render()
 {
 	m_window.draw(*m_backgroundSprite);
+	mapEditorGrid.Draw(m_window);
 	// The next line draws the physics debug info. This should be removed in a final release.
-	kage::Physics::debugDraw(&m_window, 64);
+	//kage::Physics::debugDraw(&m_window, 64);
 }
 
 void Example::cleanup()
