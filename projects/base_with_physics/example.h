@@ -4,6 +4,8 @@
 #include "kage2dutil/physics.h"
 #include "rabbit.h"
 #include "Grid.h"
+#include "Brick.h"
+#include "BrickManager.h"
 
 class Example : public App
 {
@@ -16,6 +18,7 @@ public:
 	virtual void cleanup();
 	static Example &inst();
 	Grid mapEditorGrid;
-
+	//Brick* brick;
+	BrickManager tilesOnMap;
 	sf::Sprite *m_backgroundSprite;
 };

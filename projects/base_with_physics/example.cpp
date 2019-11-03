@@ -1,5 +1,6 @@
 #include "example.h"
 
+
 Example::Example(): App()
 {
 }
@@ -31,7 +32,11 @@ bool Example::start()
 	rabbit->position(2, 4); // Note that this now uses metres instead of pixels.
 
 	mapEditorGrid.CreateGrid(m_window);
+	tilesOnMap.CreateTiles();
 
+	/*brick = kage::World::build<Brick>();
+	brick->SetSprite("Assets/brick.png");
+	brick->SetPosition(sf::Vector2f(950, 500));*/
 	return true;
 }
 
@@ -46,12 +51,20 @@ void Example::update(float deltaT)
 		m_running = false;
 	}
 
+	tilesOnMap.TileClicked(m_window);
+
 	ImGui::Begin("Kage2D");
+	if (ImGui::IsMouseHoveringWindow())
+		tilesOnMap.onGuiWindow = true;
+	else
+		tilesOnMap.onGuiWindow = false;
+	tilesOnMap.CreateSpriteChangeButtons();
 	if(ImGui::Button("Exit"))
 	{ 
 		m_running = false;
 	}
 	ImGui::End();
+
 }
 
 void Example::render()
