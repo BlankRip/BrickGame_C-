@@ -1,3 +1,4 @@
+#include <fstream>
 #include "BrickManager.h"
 
 
@@ -24,6 +25,11 @@ BrickManager::BrickManager()
 
 	//For changing sprite type
 	currentSprite = "Assets/transparentbrick.png";
+	currentBrickId = 0;
+	currentColliderId = 0;
+
+	//For saving the map to a text file
+	saveArrayCounter = 0;
 }
 
 
@@ -42,6 +48,8 @@ void BrickManager::CreateTiles()
 		{
 			bricks[arrayCounter] = kage::World::build<Brick>();
 			bricks[arrayCounter]->SetSprite("Assets/transparentbrick.png");
+			bricks[arrayCounter]->brickId = 0;
+			bricks[arrayCounter]->colliderCode = 0;
 			bricks[arrayCounter]->SetPosition(sf::Vector2f(cellWidth * x, cellHight * y));
 			arrayCounter++;
 		}
@@ -66,31 +74,93 @@ void BrickManager::TileClicked(sf::RenderWindow& window)
 
 			//Changing the sprite of that cell
 			bricks[arrayReplaceIndexNo]->SetSprite(currentSprite);
+
+			//Changing the tile's brick id and collider Code
+			bricks[arrayReplaceIndexNo]->brickId = currentBrickId;
+			bricks[arrayReplaceIndexNo]->colliderCode = currentColliderId;
 		}
 		
 	}
 }
 
+//Function that saves details of the map
+void BrickManager::Save()
+{
+	std::ofstream saveFile;
+	saveFile.open("SaveMap.txt");
+	saveFile << "[Map]" << std::endl;
+	for (size_t i = 0; i < cellsY; i++)
+	{
+		for (size_t i = 0; i < cellsX; i++)
+		{
+			saveFile << bricks[saveArrayCounter]->brickId << ", ";
+			saveArrayCounter++;
+		}
+		saveFile << std::endl;
+	}
 
+	saveFile << std::endl;
+	saveFile << std::endl;
+	saveFile << "[Colliders]" << std::endl;
+	saveArrayCounter = 0;
+	for (size_t i = 0; i < cellsY; i++)
+	{
+		for (size_t i = 0; i < cellsX; i++)
+		{
+			saveFile << bricks[saveArrayCounter]->colliderCode << ", ";
+			saveArrayCounter++;
+		}
+		saveFile << std::endl;
+	}
+}
+
+//Function that will load the map previously saved
+void BrickManager::Load()
+{
+}
+
+//UI Buttons in the map editor
 void BrickManager::CreateSpriteChangeButtons()
 {
 	if (ImGui::Button("Remove Tile"))
 	{
 		currentSprite = "Assets/transparentbrick.png";
+		currentBrickId = 0;
+		currentColliderId = 0;
 	}
-	if (ImGui::Button("Black Tile"))
+	if (ImGui::Button("Brick Tile"))
 	{
 		currentSprite = "Assets/brick.png";
+		currentBrickId = 1;
+		currentColliderId = 1;
 	}
-	if (ImGui::Button("Maybe More added"))
+	if (ImGui::Button("Yellow brick tile"))
 	{
-		currentSprite = "Assets/brick.png";
+		currentSprite = "Assets/yellowBrick.png";
+		currentBrickId = 2;
+		currentColliderId = 1;
+	}
+	if (ImGui::Button("Green brick tile"))
+	{
+		currentSprite = "Assets/greenBrick.png";
+		currentBrickId = 3;
+		currentColliderId = 1;
+	}
+	if (ImGui::Button("Save"))
+	{
+		Save();
+	}
+	if (ImGui::Button("Load"))
+	{
+
 	}
 	if (ImGui::Button("Reset"))
 	{
 		for (size_t i = 0; i < arraySize; i++)
 		{
 			bricks[i]->SetSprite("Assets/transparentbrick.png");
+			bricks[arrayCounter]->brickId = 0;
+			bricks[arrayCounter]->colliderCode = 0;
 		}
 	}
 }

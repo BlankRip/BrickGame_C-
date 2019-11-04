@@ -17,7 +17,10 @@ private:
 	int xPlacementIndex;
 	int yPlacementIndex;
 	int arrayReplaceIndexNo;
+	int currentBrickId;
+	int currentColliderId;
 	std::string currentSprite;
+	int saveArrayCounter;
 
 public:
 	Brick* bricks[240];
@@ -27,6 +30,8 @@ public:
 	~BrickManager();
 	void CreateTiles();
 	void TileClicked(sf::RenderWindow& window);
+	void Save();
+	void Load();
 	void CreateSpriteChangeButtons();
 };
 

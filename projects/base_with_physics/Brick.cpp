@@ -4,7 +4,8 @@
 
 Brick::Brick()
 {
-	
+	brickId = 0;
+	colliderCode = 0;
 }
 
 

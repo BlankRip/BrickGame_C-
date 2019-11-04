@@ -4,6 +4,9 @@
 class Brick : public kage::GameObject
 {
 public:
+	int brickId;
+	int colliderCode;
+
 	Brick();
 	~Brick();
 	void SetSprite(sf::String name);
