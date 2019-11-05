@@ -1,3 +1,4 @@
+#include <iostream>
 #include <fstream>
 #include "BrickManager.h"
 
@@ -30,6 +31,14 @@ BrickManager::BrickManager()
 
 	//For saving the map to a text file
 	saveArrayCounter = 0;
+
+	//For loading the map from the text file
+	loadCharTracker = 0;
+	yLineTracker = 0;
+	line = "";
+	checkLine = "";
+	drawMap = false;
+	drawColliders = false;
 }
 
 
@@ -89,11 +98,15 @@ void BrickManager::Save()
 	std::ofstream saveFile;
 	saveFile.open("SaveMap.txt");
 	saveFile << "[Map]" << std::endl;
+	saveArrayCounter = 0;
 	for (size_t i = 0; i < cellsY; i++)
 	{
 		for (size_t i = 0; i < cellsX; i++)
 		{
-			saveFile << bricks[saveArrayCounter]->brickId << ", ";
+			if(i == cellsX - 1)
+				saveFile << bricks[saveArrayCounter]->brickId;
+			else
+				saveFile << bricks[saveArrayCounter]->brickId << ", ";
 			saveArrayCounter++;
 		}
 		saveFile << std::endl;
@@ -107,7 +120,10 @@ void BrickManager::Save()
 	{
 		for (size_t i = 0; i < cellsX; i++)
 		{
-			saveFile << bricks[saveArrayCounter]->colliderCode << ", ";
+			if (i == cellsX - 1)
+				saveFile << bricks[saveArrayCounter]->colliderCode;
+			else
+				saveFile << bricks[saveArrayCounter]->colliderCode << ", ";
 			saveArrayCounter++;
 		}
 		saveFile << std::endl;
@@ -117,6 +133,78 @@ void BrickManager::Save()
 //Function that will load the map previously saved
 void BrickManager::Load()
 {
+	std::ifstream loadFile;
+	loadFile.open("SaveMap.txt");
+	if (loadFile.is_open())
+	{
+		while (std::getline(loadFile, line))
+		{
+			if (line == "[Map]")
+			{
+				drawMap = true;
+				saveArrayCounter = 0;
+				continue;
+			}
+
+			//When reading the map in text it will start drawing
+			if (drawMap)
+			{
+				if (yLineTracker < cellsY)
+				{
+					for (size_t i = 0; loadCharTracker < line.length(); i++)
+					{
+						checkLine = line.substr((i * 3), 1);
+						loadCharTracker = (i + 1) * 3;
+						if (checkLine == "0")
+						{
+							//Changing the sprite of that cell and the brick n collider ids
+							bricks[saveArrayCounter]->SetSprite("Assets/transparentbrick.png");
+							bricks[saveArrayCounter]->brickId = 0;
+							bricks[saveArrayCounter]->colliderCode = 0;
+						}
+						else if (checkLine == "1")
+						{
+							//Changing the sprite of that cell and the brick n collider ids
+							bricks[saveArrayCounter]->SetSprite("Assets/brick.png");
+							bricks[saveArrayCounter]->brickId = 1;
+							bricks[saveArrayCounter]->colliderCode = 1;
+						}
+						else if (checkLine == "2")
+						{
+							//Changing the sprite of that cell and the brick n collider ids
+							bricks[saveArrayCounter]->SetSprite("Assets/yellowBrick.png");
+							bricks[saveArrayCounter]->brickId = 2;
+							bricks[saveArrayCounter]->colliderCode = 1;
+						}
+						else if (checkLine == "3")
+						{
+							//Changing the sprite of that cell and the brick n collider ids
+							bricks[saveArrayCounter]->SetSprite("Assets/greenBrick.png");
+							bricks[saveArrayCounter]->brickId = 3;
+							bricks[saveArrayCounter]->colliderCode = 1;
+						}
+						saveArrayCounter++;
+					}
+					loadCharTracker = 0;
+					yLineTracker++;
+				}
+				else
+				{
+					yLineTracker = 0;
+					drawMap = false;
+				}
+
+				//To add colliders to the place where ther is a brick
+				for (size_t i = 0; i < arraySize; i++)
+				{
+					if (bricks[i]->colliderCode == 0)
+						std::cout << "This has not collider" << std::endl;
+					else if (bricks[i]->colliderCode == 1)
+						std::cout << "COLLIDER!!!" << std::endl;
+				}
+			}
+		}
+	}
 }
 
 //UI Buttons in the map editor
@@ -152,15 +240,15 @@ void BrickManager::CreateSpriteChangeButtons()
 	}
 	if (ImGui::Button("Load"))
 	{
-
+		Load();
 	}
 	if (ImGui::Button("Reset"))
 	{
 		for (size_t i = 0; i < arraySize; i++)
 		{
 			bricks[i]->SetSprite("Assets/transparentbrick.png");
-			bricks[arrayCounter]->brickId = 0;
-			bricks[arrayCounter]->colliderCode = 0;
+			bricks[i]->brickId = 0;
+			bricks[i]->colliderCode = 0;
 		}
 	}
 }

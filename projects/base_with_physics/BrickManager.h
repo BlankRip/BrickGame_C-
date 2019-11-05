@@ -21,6 +21,12 @@ private:
 	int currentColliderId;
 	std::string currentSprite;
 	int saveArrayCounter;
+	int loadCharTracker;
+	int yLineTracker;
+	std::string line;
+	std::string checkLine;
+	bool drawMap;
+	bool drawColliders;
 
 public:
 	Brick* bricks[240];
