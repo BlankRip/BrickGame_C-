@@ -173,7 +173,6 @@ void BrickManager::Load()
 							loadCharTracker = stringIndex;
 						}
 
-						std::cout << checkLine << std::endl;
 						if (checkLine == "0")
 						{
 							//Changing the sprite of that cell and the brick n collider ids
