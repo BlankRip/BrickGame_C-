@@ -27,6 +27,9 @@ private:
 	std::string checkLine;
 	bool drawMap;
 	bool drawColliders;
+	int stringIndex;
+	int firstStringIndex;
+	bool firstTime;
 
 public:
 	Brick* bricks[240];

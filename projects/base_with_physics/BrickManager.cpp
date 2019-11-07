@@ -33,12 +33,15 @@ BrickManager::BrickManager()
 	saveArrayCounter = 0;
 
 	//For loading the map from the text file
+	stringIndex = 0;
+	firstStringIndex = 0;
 	loadCharTracker = 0;
 	yLineTracker = 0;
 	line = "";
 	checkLine = "";
 	drawMap = false;
 	drawColliders = false;
+	firstTime = true;
 }
 
 
@@ -70,7 +73,7 @@ void BrickManager::TileClicked(sf::RenderWindow& window)
 {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-		if (!onGuiWindow)
+		if (!onGuiWindow && window.hasFocus())
 		{
 			//Math to find the index of the cell clicked in the array
 			mousePositionX = sf::Mouse::getPosition(window).x;
@@ -99,6 +102,7 @@ void BrickManager::Save()
 	saveFile.open("SaveMap.txt");
 	saveFile << "[Map]" << std::endl;
 	saveArrayCounter = 0;
+	//Writing each line brick ids on the grid
 	for (size_t i = 0; i < cellsY; i++)
 	{
 		for (size_t i = 0; i < cellsX; i++)
@@ -115,13 +119,14 @@ void BrickManager::Save()
 	saveFile << std::endl;
 	saveFile << std::endl;
 	saveFile << "[Colliders]" << std::endl;
-	saveArrayCounter = 0;
+	saveArrayCounter = 0;                             //Resetting saveArrayCounter value
+	//Writing each line collider ids on the grid
 	for (size_t i = 0; i < cellsY; i++)
 	{
 		for (size_t i = 0; i < cellsX; i++)
 		{
 			if (i == cellsX - 1)
-				saveFile << bricks[saveArrayCounter]->colliderCode;
+				saveFile << bricks[saveArrayCounter]->colliderCode << ",";
 			else
 				saveFile << bricks[saveArrayCounter]->colliderCode << ", ";
 			saveArrayCounter++;
@@ -139,6 +144,7 @@ void BrickManager::Load()
 	{
 		while (std::getline(loadFile, line))
 		{
+			//Checking fro the map line
 			if (line == "[Map]")
 			{
 				drawMap = true;
@@ -151,10 +157,23 @@ void BrickManager::Load()
 			{
 				if (yLineTracker < cellsY)
 				{
-					for (size_t i = 0; loadCharTracker < line.length(); i++)
+					for (size_t i = 0; loadCharTracker <= line.length(); i++)
 					{
-						checkLine = line.substr((i * 3), 1);
-						loadCharTracker = (i + 1) * 3;
+						if (firstTime)
+						{
+							firstStringIndex = line.find(",");
+							checkLine = line.substr(0, firstStringIndex);
+							firstTime = false;
+						}
+						else
+						{
+							stringIndex = line.find(",", firstStringIndex + 1);
+							checkLine = line.substr(firstStringIndex + 2, stringIndex - firstStringIndex - 2);
+							firstStringIndex = stringIndex;
+							loadCharTracker = stringIndex;
+						}
+
+						std::cout << checkLine << std::endl;
 						if (checkLine == "0")
 						{
 							//Changing the sprite of that cell and the brick n collider ids
@@ -185,8 +204,9 @@ void BrickManager::Load()
 						}
 						saveArrayCounter++;
 					}
-					loadCharTracker = 0;
+					firstTime = true;
 					yLineTracker++;
+					loadCharTracker = 0;
 				}
 				else
 				{

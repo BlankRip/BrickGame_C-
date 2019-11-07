@@ -15,5 +15,4 @@ public:
 	~Grid();
 	void CreateGrid(sf::RenderWindow& window);
 	void Draw(sf::RenderWindow& window);
-	sf::RectangleShape line;
 };

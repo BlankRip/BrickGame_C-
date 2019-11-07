@@ -18,7 +18,6 @@ public:
 	virtual void cleanup();
 	static Example &inst();
 	Grid mapEditorGrid;
-	//Brick* brick;
 	BrickManager tilesOnMap;
 	sf::Sprite *m_backgroundSprite;
 };

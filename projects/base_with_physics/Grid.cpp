@@ -6,8 +6,6 @@ Grid::Grid()
 {
 	distanceBtwVertical = 160;
 	distanceBtwHorizontal = 54;
-	line.setSize(sf::Vector2f(960, 30));
-	line.setPosition(483, 650);
 }
 
 
@@ -44,7 +42,6 @@ void Grid::CreateGrid(sf::RenderWindow& window)
 //Function that draws the grid
 void Grid::Draw(sf::RenderWindow& window)
 {
-	window.draw(line);
 	for (size_t i = 0; i < virticalLines.size(); i++)
 	{
 		window.draw(virticalLines[i]);
