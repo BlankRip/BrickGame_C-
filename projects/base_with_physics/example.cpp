@@ -1,5 +1,6 @@
 #include "example.h"
 
+
 Example::Example(): App()
 {
 }
@@ -20,43 +21,59 @@ bool Example::start()
 	kage::Physics::init(b2Vec2(0, 9.8));
 	// Floor, left wall and right wall static colliders.
 	kage::Physics::BoxBuilder().pos(kf::Vector2(15, 16)).size(30, 1).build(kage::Physics::getDefaultStatic());
-	kage::Physics::BoxBuilder().pos(kf::Vector2(0, 8)).size(1, 16).build(kage::Physics::getDefaultStatic());
-	kage::Physics::BoxBuilder().pos(kf::Vector2(30, 8)).size(1, 16).build(kage::Physics::getDefaultStatic());
-
+	
+	//Setting background sprite and its properties
 	m_backgroundSprite = kage::TextureManager::getSprite("data/sky.jpg");
 	sf::Vector2u resolution = m_backgroundSprite->getTexture()->getSize();
 	m_backgroundSprite->setScale(float(m_window.getSize().x) / resolution.x, float(m_window.getSize().y) / resolution.y);
 
+	//Creating rabbit
 	Rabbit *rabbit = kage::World::build<Rabbit>();
 	rabbit->position(2, 4); // Note that this now uses metres instead of pixels.
 
+	//Function to creating the grid on the window
+	mapEditorGrid.CreateGrid(m_window);
+	//Placeing transparent tiles without colliders in the grid on start
+	tilesOnMap.CreateTiles();
 	return true;
 }
 
 void Example::update(float deltaT)
 {
 	// You need to update the physics system every game update
-
 	kage::Physics::update(deltaT);
 
+	//Close window when esc is pressed
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && m_window.hasFocus())
 	{
 		m_running = false;
 	}
 
+	// Function that checks if clicked on a tile and addes a brick if clicked
+	tilesOnMap.TileClicked(m_window);
+
+	//The GIU Window stuff
 	ImGui::Begin("Kage2D");
+	if (ImGui::IsMouseHoveringWindow())
+		tilesOnMap.onGuiWindow = true;
+	else
+		tilesOnMap.onGuiWindow = false;
+
+	tilesOnMap.CreateSpriteChangeButtons();
 	if(ImGui::Button("Exit"))
 	{ 
 		m_running = false;
 	}
 	ImGui::End();
+
 }
 
 void Example::render()
 {
 	m_window.draw(*m_backgroundSprite);
+	mapEditorGrid.Draw(m_window);
 	// The next line draws the physics debug info. This should be removed in a final release.
-	kage::Physics::debugDraw(&m_window, 64);
+	//kage::Physics::debugDraw(&m_window, 64);
 }
 
 void Example::cleanup()
