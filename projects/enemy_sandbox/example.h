@@ -6,16 +6,16 @@
 #include "Frost.h"
 #include "demon.h"
 
-class Example : public App
+class TheEditor : public App
 {
 public:
-	Example();
-	virtual ~Example();
+	TheEditor();
+	virtual ~TheEditor();
 	virtual bool start();
 	virtual void update(float deltaT);
 	virtual void render();
 	virtual void cleanup();
-	static Example &inst();
+	static TheEditor &inst();
 
 	sf::Sprite *m_backgroundSprite;
 };
