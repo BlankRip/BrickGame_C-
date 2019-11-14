@@ -2,6 +2,7 @@
 
 #include "app.h"
 #include "kage2dutil/physics.h"
+#include "BrickManager.h"
 #include "rabbit.h"
 
 class TheEditor : public App
@@ -15,5 +16,5 @@ public:
 	virtual void cleanup();
 	static TheEditor &inst();
 
-	sf::Sprite *m_backgroundSprite;
+	BrickManager makeMap;
 };

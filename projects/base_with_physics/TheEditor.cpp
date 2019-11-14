@@ -54,12 +54,6 @@ void TheEditor::update(float deltaT)
 void TheEditor::render()
 {
 	mapEditorGrid.Draw(m_window);
-	// The next line draws the physics debug info. This should be removed in a final release.
-	//kage::Physics::debugDraw(&m_window, 64);
 }
 
-void TheEditor::cleanup()
-{
-	delete m_backgroundSprite;
-}
 

@@ -30,7 +30,7 @@ BrickManager::BrickManager()
 	currentColliderId = 0;
 
 	//For saving the map to a text file
-	saveArrayCounter = 0;
+	loadArrayCounter = 0;
 
 	//For loading the map from the text file
 	stringIndex = 0;
@@ -101,17 +101,17 @@ void BrickManager::Save()
 	std::ofstream saveFile;
 	saveFile.open("SaveMap.txt");
 	saveFile << "[Map]" << std::endl;
-	saveArrayCounter = 0;
+	loadArrayCounter = 0;
 	//Writing each line brick ids on the grid
 	for (size_t i = 0; i < cellsY; i++)
 	{
 		for (size_t i = 0; i < cellsX; i++)
 		{
 			if(i == cellsX - 1)
-				saveFile << bricks[saveArrayCounter]->brickId;
+				saveFile << bricks[loadArrayCounter]->brickId;
 			else
-				saveFile << bricks[saveArrayCounter]->brickId << ", ";
-			saveArrayCounter++;
+				saveFile << bricks[loadArrayCounter]->brickId << ", ";
+			loadArrayCounter++;
 		}
 		saveFile << std::endl;
 	}
@@ -119,17 +119,17 @@ void BrickManager::Save()
 	saveFile << std::endl;
 	saveFile << std::endl;
 	saveFile << "[Colliders]" << std::endl;
-	saveArrayCounter = 0;                             //Resetting saveArrayCounter value
+	loadArrayCounter = 0;                             //Resetting saveArrayCounter value
 	//Writing each line collider ids on the grid
 	for (size_t i = 0; i < cellsY; i++)
 	{
 		for (size_t i = 0; i < cellsX; i++)
 		{
 			if (i == cellsX - 1)
-				saveFile << bricks[saveArrayCounter]->colliderCode << ",";
+				saveFile << bricks[loadArrayCounter]->colliderCode << ",";
 			else
-				saveFile << bricks[saveArrayCounter]->colliderCode << ", ";
-			saveArrayCounter++;
+				saveFile << bricks[loadArrayCounter]->colliderCode << ", ";
+			loadArrayCounter++;
 		}
 		saveFile << std::endl;
 	}
@@ -148,7 +148,7 @@ void BrickManager::Load()
 			if (line == "[Map]")
 			{
 				drawMap = true;
-				saveArrayCounter = 0;
+				loadArrayCounter = 0;
 				continue;
 			}
 
@@ -176,32 +176,32 @@ void BrickManager::Load()
 						if (checkLine == "0")
 						{
 							//Changing the sprite of that cell and the brick n collider ids
-							bricks[saveArrayCounter]->SetSprite("Assets/transparentbrick.png");
-							bricks[saveArrayCounter]->brickId = 0;
-							bricks[saveArrayCounter]->colliderCode = 0;
+							bricks[loadArrayCounter]->SetSprite("Assets/transparentbrick.png");
+							bricks[loadArrayCounter]->brickId = 0;
+							bricks[loadArrayCounter]->colliderCode = 0;
 						}
 						else if (checkLine == "1")
 						{
 							//Changing the sprite of that cell and the brick n collider ids
-							bricks[saveArrayCounter]->SetSprite("Assets/brick.png");
-							bricks[saveArrayCounter]->brickId = 1;
-							bricks[saveArrayCounter]->colliderCode = 1;
+							bricks[loadArrayCounter]->SetSprite("Assets/brick.png");
+							bricks[loadArrayCounter]->brickId = 1;
+							bricks[loadArrayCounter]->colliderCode = 1;
 						}
 						else if (checkLine == "2")
 						{
 							//Changing the sprite of that cell and the brick n collider ids
-							bricks[saveArrayCounter]->SetSprite("Assets/yellowBrick.png");
-							bricks[saveArrayCounter]->brickId = 2;
-							bricks[saveArrayCounter]->colliderCode = 1;
+							bricks[loadArrayCounter]->SetSprite("Assets/yellowBrick.png");
+							bricks[loadArrayCounter]->brickId = 2;
+							bricks[loadArrayCounter]->colliderCode = 1;
 						}
 						else if (checkLine == "3")
 						{
 							//Changing the sprite of that cell and the brick n collider ids
-							bricks[saveArrayCounter]->SetSprite("Assets/greenBrick.png");
-							bricks[saveArrayCounter]->brickId = 3;
-							bricks[saveArrayCounter]->colliderCode = 1;
+							bricks[loadArrayCounter]->SetSprite("Assets/greenBrick.png");
+							bricks[loadArrayCounter]->brickId = 3;
+							bricks[loadArrayCounter]->colliderCode = 1;
 						}
-						saveArrayCounter++;
+						loadArrayCounter++;
 					}
 					firstTime = true;
 					yLineTracker++;

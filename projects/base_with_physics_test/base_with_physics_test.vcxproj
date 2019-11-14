@@ -99,11 +99,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="app.h" />
+    <ClInclude Include="Brick.h" />
+    <ClInclude Include="BrickManager.h" />
     <ClInclude Include="example.h" />
     <ClInclude Include="rabbit.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="app.cpp" />
+    <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="BrickManager.cpp" />
     <ClCompile Include="dependencies.cpp" />
     <ClCompile Include="example.cpp" />
     <ClCompile Include="main.cpp" />

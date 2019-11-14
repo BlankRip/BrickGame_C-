@@ -50,16 +50,6 @@ void Rabbit::update(float deltaT)
 	kf::Vector2 force(x*10, 0);
 	addForce(force);
 
-	ImGui::Begin("Controller");
-	ImGui::RadioButton("Left Stick", &stickNum, 0);
-	ImGui::RadioButton("Right Stick", &stickNum, 1);
-	ImGui::Checkbox("Normalise Outer", &normOuter);
-	ImGui::Checkbox("Normalise Inner", &normInner);
-	ImGui::Checkbox("Dead Zone", &deadZone);
-	ImGui::SliderFloat("Dead Zone Inner", &deadZoneInner, 0, 1);
-	ImGui::End();
-	
-
 
 
 
@@ -140,11 +130,6 @@ void Rabbit::render(sf::RenderWindow &rw)
 	}
 	positions.push_back(stick);
 
-	kage::drawCircle(rw, kf::Vector2(960, 540), 300, 32);
-	kage::drawCircle(rw, kf::Vector2(960, 540), 300*deadZoneInner, 32);
-
-	kage::drawArrow(rw, kf::Vector2(960, 540), kf::Vector2(960, 540) + stick * 300, 10, 20, sf::Color::Cyan);
-	kage::drawCircle(rw, kf::Vector2(960, 540) + raw * 300, 10, 10, sf::Color::Cyan);
 	for (int i = 1; i < positions.size(); ++i)
 	{
 		int fade = 255 - (positions.size() - i);

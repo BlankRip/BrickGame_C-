@@ -13,9 +13,7 @@ public:
 	virtual bool start();
 	virtual void update(float deltaT);
 	virtual void render();
-	virtual void cleanup();
 	static TheEditor &inst();
 	Grid mapEditorGrid;
 	BrickManager tilesOnMap;
-	sf::Sprite *m_backgroundSprite;
 };
