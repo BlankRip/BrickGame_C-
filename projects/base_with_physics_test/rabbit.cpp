@@ -1,5 +1,5 @@
 #include "rabbit.h"
-#include "example.h"
+#include "Game.h"
 #include "windows.h"
 #include "xinput.h"
 

@@ -9,8 +9,9 @@ public:
 
 	Brick();
 	~Brick();
+	void update(float dt)override;
 	void SetSprite(sf::String name);
 	void SetPosition(sf::Vector2f position);
-	void SetColliders(int sizeX, int sizeY, int x, int y);
+	void SetColliders();
 };
 

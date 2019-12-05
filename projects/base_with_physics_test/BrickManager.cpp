@@ -74,7 +74,7 @@ void BrickManager::Load()
 			{
 				if (yLineTracker < cellsY)
 				{
-					for (size_t i = 0; loadCharTracker <= line.length(); i++)
+					for (; loadCharTracker <= line.length();)
 					{
 						if (firstTime)
 						{
@@ -137,7 +137,7 @@ void BrickManager::Load()
 					//For every unit y axis looping across the x axis
 					for (size_t x = 0; x < cellsX; x++)
 					{
-						bricks[arrayCounter]->SetColliders(2.3f, 0.9f, x, y);
+						bricks[arrayCounter]->SetColliders();
 						arrayCounter++;
 					}
 				}

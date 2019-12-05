@@ -3,18 +3,18 @@
 #include "app.h"
 #include "kage2dutil/physics.h"
 #include "BrickManager.h"
-#include "rabbit.h"
+#include "Ball.h"
 
-class TheEditor : public App
+class Game : public App
 {
 public:
-	TheEditor();
-	virtual ~TheEditor();
+	Game();
+	virtual ~Game();
 	virtual bool start();
 	virtual void update(float deltaT);
 	virtual void render();
 	virtual void cleanup();
-	static TheEditor &inst();
+	static Game&inst();
 
 	BrickManager makeMap;
 };
