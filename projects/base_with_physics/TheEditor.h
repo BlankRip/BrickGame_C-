@@ -1,23 +1,19 @@
 #pragma once
 
 #include "app.h"
-#include "kage2dutil/physics.h"
-#include "rabbit.h"
 #include "Grid.h"
 #include "Brick.h"
 #include "BrickManager.h"
 
-class Example : public App
+class TheEditor : public App
 {
 public:
-	Example();
-	virtual ~Example();
+	TheEditor();
+	virtual ~TheEditor();
 	virtual bool start();
 	virtual void update(float deltaT);
 	virtual void render();
-	virtual void cleanup();
-	static Example &inst();
+	static TheEditor &inst();
 	Grid mapEditorGrid;
 	BrickManager tilesOnMap;
-	sf::Sprite *m_backgroundSprite;
 };

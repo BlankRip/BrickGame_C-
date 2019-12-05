@@ -24,10 +24,16 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="example.cpp">
+    <ClCompile Include="Brick.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="rabbit.cpp">
+    <ClCompile Include="BrickManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ball.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,10 +41,16 @@
     <ClInclude Include="app.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="example.h">
+    <ClInclude Include="Brick.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="rabbit.h">
+    <ClInclude Include="BrickManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ball.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

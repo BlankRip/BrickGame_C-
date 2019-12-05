@@ -2,18 +2,19 @@
 
 #include "app.h"
 #include "kage2dutil/physics.h"
-#include "rabbit.h"
+#include "BrickManager.h"
+#include "Ball.h"
 
-class Example : public App
+class Game : public App
 {
 public:
-	Example();
-	virtual ~Example();
+	Game();
+	virtual ~Game();
 	virtual bool start();
 	virtual void update(float deltaT);
 	virtual void render();
 	virtual void cleanup();
-	static Example &inst();
+	static Game&inst();
 
-	sf::Sprite *m_backgroundSprite;
+	BrickManager makeMap;
 };

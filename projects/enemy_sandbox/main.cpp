@@ -6,7 +6,7 @@ using namespace std;
 
 int main()
 {
-	Example::inst().run();
+	TheEditor::inst().run();
 
 	return 0;
 }
