@@ -50,6 +50,4 @@ void Brick::SetColliders()
 			.size(160.0f / 64.0f, 54.0f / 64.0f)
 			.build(kage::Physics::getDefaultStatic());
 	}
-		//kage::Physics::BoxBuilder().pos(kf::Vector2(3, 15)).size(sizeX, sizeY).build(kage::Physics::getDefaultStatic());
-
 }
